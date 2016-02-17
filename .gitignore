@@ -17,3 +17,6 @@
 
 # Ignore vendor files
 /vendor
+
+# Ignore attaches files
+public/uploads

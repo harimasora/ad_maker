@@ -1,0 +1,52 @@
+<header>
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-responsive" src="/assets/logo.png">
+    </div>
+    <div class="col-md-4">
+      <h1 class="text-center">Editando Ordem de Produção</h1>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</header>
+
+<section class="well">
+  <p>Nro. OP: <strong><%= @production_order.id %></strong>
+    Data/Solicitação: <strong><%= @production_order.created_at.to_formatted_s(:long) %></strong>
+    UF: <strong><%= @production_order.business_unit.federation_unit_name %></strong>
+    Cidade: <strong><%= @production_order.business_unit.city_name %></strong>
+    Unidade: <strong><%= @production_order.business_unit.name %></strong>
+  </p>
+  <p class="pull-right">Status: <strong><%= @production_order.human_state_name %></strong></p>
+  <p>Solicitante: <strong><%= @production_order.soliciting_user.name %></strong></p>
+</section>
+
+<%= render 'form' %>
+
+<section class="panel panel-success">
+  <div class="panel-heading">
+    <div class="panel-title">AÇÕES</div>
+  </div>
+  <div class="panel-body">
+    <%= button_to 'Aprovar',
+                  {action: 'approve', production_order: {id: @production_order.id}},
+                  method: :put,
+                  class: 'btn btn-success' if @production_order.can_approve? %>
+    <%= button_to 'Checar Design',
+                  {action: 'check_design', production_order: {id: @production_order.id}},
+                  method: :put,
+                  class: 'btn btn-info' if @production_order.can_check_design? %>
+    <%= button_to 'Rejeitar',
+                  {action: 'reject', production_order: {id: @production_order.id}},
+                  method: :put,
+                  class: 'btn btn-warning' if @production_order.can_reject? %>
+    <%= button_to 'Cancelar',
+                  {action: 'cancel', production_order: {id: @production_order.id}},
+                  method: :put,
+                  class: 'btn btn-danger',
+                  data: { confirm: 'Deseja realmente cancelar esta ordem de produção? Esta ação não poderá ser desfeita.' }if @production_order.can_cancel? %>
+  </div>
+</section>
+
+<%= link_to 'Show', @production_order %> |
+<%= link_to 'Back', production_orders_path %>

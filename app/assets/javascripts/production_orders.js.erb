@@ -1,0 +1,113 @@
+$(document).on("page:change", function() {
+  // #first_select is the id of our first select box, if the ajax request has been successful,
+  // an ajax:success event is triggered.
+  $('#filterrific_with_federation_unit_id').on('ajax:success', function(evt, data, status, xhr) {
+    // get second selectbox by its id
+    var cities_box = $('#filterrific_with_city_id');
+
+    // empty it
+    cities_box.empty();
+
+    // add all option
+    var all_opt = $('<option/>');
+    all_opt.text('- Todos -');
+    all_opt.attr('value', '');
+    all_opt.appendTo(cities_box);
+
+    // we got a JSON array in data, iterate through it
+    $.each(data, function(index, value) {
+
+      // append an option
+      var opt = $('<option/>');
+
+      // value is an array: [:name, :id]
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      // append to select
+      opt.appendTo(cities_box);
+    });
+
+    // trigger change event
+    cities_box.change();
+  });
+
+  $('#filterrific_with_city_id').on('ajax:success', function(evt, data, status, xhr) {
+    var units_box = $('#filterrific_with_business_unit_id');
+
+    units_box.empty();
+
+    var all_opt = $('<option/>');
+    all_opt.text('- Todos -');
+    all_opt.attr('value', '');
+    all_opt.appendTo(units_box);
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(units_box);
+    });
+
+    units_box.change();
+  });
+
+  $('#filterrific_with_business_unit_id').on('ajax:success', function(evt, data, status, xhr) {
+    var responsible_box = $('#filterrific_with_responsible_user_id');
+
+    responsible_box.empty();
+
+    var all_opt = $('<option/>');
+    all_opt.text('- Todos -');
+    all_opt.attr('value', '');
+    all_opt.appendTo(responsible_box);
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(responsible_box);
+    });
+
+    responsible_box.change();
+  });
+
+  $('#production_order_category1').on('ajax:success', function(evt, data, status, xhr) {
+    var subcategory_box = $('#production_order_subcategory1');
+
+    subcategory_box.empty();
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(subcategory_box);
+    });
+  });
+
+  $('#production_order_category2').on('ajax:success', function(evt, data, status, xhr) {
+    var subcategory_box = $('#production_order_subcategory2');
+
+    subcategory_box.empty();
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(subcategory_box);
+    });
+  });
+
+  $('#production_order_category3').on('ajax:success', function(evt, data, status, xhr) {
+    var subcategory_box = $('#production_order_subcategory3');
+
+    subcategory_box.empty();
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(subcategory_box);
+    });
+  });
+
+});

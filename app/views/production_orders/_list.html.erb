@@ -1,0 +1,51 @@
+<div class="well well-sm">
+  <div class="pull-right">
+    <%= link_to(
+            'Resetar filtros',
+            reset_filterrific_url
+        ) %>
+  </div>
+  <%= page_entries_info production_orders %>
+  <%# add an automated spinner to your form when the list is refreshed %>
+  <%= render_filterrific_spinner %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nro. OP</th>
+      <th>Data/Solicitação</th>
+      <th>Cliente</th>
+      <th>Solicitante</th>
+      <th>Responsável</th>
+      <th>Status</th>
+      <th>Duração</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% production_orders.each do |production_order| %>
+    <tr>
+      <td><%= production_order.code %></td>
+      <td><%= production_order.created_at.to_formatted_s(:long) %></td>
+      <td><%= production_order.name %></td>
+      <td><%= production_order.soliciting_user_email %></td>
+      <% if production_order.responsible_user_id %>
+        <td><%= production_order.responsible_user.email %></td>
+      <% else %>
+        <td>Nenhum</td>
+      <% end %>
+      <td><%= production_order.human_state_name %></td>
+      <td><%= '%d' % production_order.duration %></td>
+      <td><%= link_to 'Visualizar', production_order %></td>
+      <td><%= link_to 'Editar', edit_production_order_path(production_order) %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate production_orders, renderer: BootstrapPagination::Rails %>

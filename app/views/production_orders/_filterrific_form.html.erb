@@ -1,0 +1,114 @@
+<div class="well">
+  <%= form_for_filterrific @filterrific do |f| %>
+    <div class="row">
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_federation_unit_id" class="form-control-label">UF:</label>
+        <%= f.select(
+                :with_federation_unit_id,
+                @filterrific.select_options[:with_federation_unit_id],
+                @federation_unit_blank,
+                @federation_unit_options
+            ) %>
+      </div></div>
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_city_id">Cidade:</label>
+        <%= f.select(
+                :with_city_id,
+                @filterrific.select_options[:with_city_id],
+                @city_blank,
+                @city_options
+            ) %>
+      </div></div>
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_business_unit_id">Unidade:</label>
+        <%= f.select(
+                :with_business_unit_id,
+                @filterrific.select_options[:with_business_unit_id],
+                @business_unit_blank,
+                @business_unit_options
+            ) %>
+      </div></div>
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_state">Etapa:</label>
+        <%= f.select(
+                :with_state,
+                @filterrific.select_options[:with_state],
+                { include_blank: '- Todos -' },
+                class: 'form-control'
+            ) %>
+      </div></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_created_at_gte">Data de Solicitação:</label>
+        <%= f.text_field(:with_created_at_gte, class: 'datepicker form-control') %>
+      </div></div>
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_created_at_lt">Até:</label>
+        <%= f.text_field(:with_created_at_lt, class: 'datepicker form-control') %>
+      </div></div>
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_search_code_query">Nro. OP:</label>
+        <%= f.text_field(
+                :search_code_query,
+                class: 'filterrific-periodically-observed form-control'
+            ) %>
+      </div></div>
+      <div class="col-md-3"><div class="form-group">
+        <label for="filterrific_with_soliciting_user_id">Solicitante:</label>
+        <%= f.select(
+                :with_soliciting_user_id,
+                @filterrific.select_options[:with_soliciting_user_id],
+                { include_blank: '- Todos -' },
+                class: 'form-control'
+            ) %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"><div class="form-group">
+        <label for="filterrific_search_name_query">Cliente:</label>
+        <%= f.text_field(
+                :search_name_query,
+                class: 'filterrific-periodically-observed form-control'
+            ) %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <label for="filterrific_with_responsible_user_id">Responsável:</label>
+        <%= f.select(
+                :with_responsible_user_id,
+                @filterrific.select_options[:with_responsible_user_id],
+                { include_blank: '- Todos -' },
+                class: 'form-control'
+            ) %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <label for="filterrific_with_duration">Duração:</label>
+        <%= f.number_field(
+                :with_duration,
+                class: 'filterrific-periodically-observed form-control',
+                min: '0'
+            ) %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="filterrific_with_not_published">Ocultar Publicados:</label>
+          <%= f.check_box(:with_not_published) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="filterrific_sorted_by">Ordenar por:</label>
+          <%= f.select(:sorted_by,
+                       @filterrific.select_options[:sorted_by],
+                       { },
+                       class: 'form-control'
+              ) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

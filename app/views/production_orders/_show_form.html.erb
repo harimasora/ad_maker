@@ -1,0 +1,175 @@
+<%= nested_form_for(production_order, html: { multipart: true } ) do |f| %>
+  <section class="well">
+    <p>Nro. OP: <strong><%= @production_order.id %></strong>
+      Data/Solicitação: <strong><%= @production_order.created_at.to_formatted_s(:long) %></strong>
+      UF: <strong><%= @production_order.business_unit.federation_unit_name %></strong>
+      Cidade: <strong><%= @production_order.business_unit.city_name %></strong>
+      Unidade: <strong><%= @production_order.business_unit.name %></strong>
+    </p>
+    <p class="pull-right">Status: <strong><%= @production_order.human_state_name %></strong></p>
+    <p>Solicitante: <strong><%= @production_order.soliciting_user.name %></strong></p>
+  </section>
+
+  <section class="well">
+    <div class="row">
+      <div class="col-md-12"><div class="form-group">
+        <%= f.label 'Título' %><br />
+        <%= f.text_field :name, class: "form-control", disabled: true %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8"><div class="form-group">
+        <%= f.label 'Endereço' %><br />
+        <%= f.text_field :address, class: "form-control", disabled: true%>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'CEP' %><br />
+        <%= f.text_field :zip, 'data-inputmask': "'mask': '99999-999'", class: "form-control", disabled: true %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Telefone 1' %><br />
+        <%= f.text_field :phone1, 'data-inputmask': "'mask': '(99) 9999[9]-9999'", class: "form-control", disabled: true %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Telefone 2' %><br />
+        <%= f.text_field :phone2, 'data-inputmask': "'mask': '(99) 9999[9]-9999'", class: "form-control", disabled: true %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Telefone 3' %><br />
+        <%= f.text_field :phone3, 'data-inputmask': "'mask': '(99) 9999[9]-9999'", class: "form-control", disabled: true %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Email' %><br />
+        <%= f.text_field :email, class: "form-control", disabled: true %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Site' %><br />
+        <%= f.text_field :website, class: "form-control", disabled: true %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Facebook' %><br />
+        <%= f.text_field :facebook, class: "form-control", disabled: true %>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="well">
+    <div class="row">
+      <div class="col-md-8"><div class="form-group">
+        <%= f.label 'Texto Publicitário' %><br />
+        <%= f.text_area :publicity_text, class: "form-control", rows: 10, disabled: true %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Logotipo' %><br />
+        <%= image_tag(production_order.logotype_url, id: 'img_prev', class: 'img-responsive img-rounded')%>
+        <%= f.hidden_field :logotype_cache %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="category1" class="form-control-label">Categoria 1:</label>
+          <%= f.text_field(
+                  :category1,
+                  class: 'form-control', disabled: true
+              ) %>
+        </div>
+        <div class="form-group">
+          <label for="subcategory1" class="form-control-label">Sub Categoria 1:</label>
+          <%= f.text_field(
+                  :subcategory1,
+                  class: 'form-control', disabled: true
+              ) %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="category2" class="form-control-label">Categoria 2:</label>
+          <%= f.text_field(
+                  :category2,
+                  class: 'form-control', disabled: true
+              ) %>
+        </div>
+        <div class="form-group">
+          <label for="subcategory2" class="form-control-label">Sub Categoria 2:</label>
+          <%= f.text_field(
+                  :subcategory2,
+                  class: 'form-control', disabled: true
+              ) %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="category3" class="form-control-label">Categoria 3:</label>
+          <%= f.text_field(
+                  :category3,
+                  class: 'form-control', disabled: true
+              ) %>
+        </div>
+        <div class="form-group">
+          <label for="subcategory3" class="form-control-label">Sub Categoria 3:</label>
+          <%= f.text_field(
+                  :subcategory3,
+                  class: 'form-control', disabled: true
+              ) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="well">
+    <div class="row">
+      <h1 class="text-center">Saiba Mais</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label 'Descrição' %><br />
+        <%= f.text_area :description, class: "form-control", rows: 10, disabled: true %>
+      </div>
+      <div class="col-md-12"><div class="form-group">
+        <%= f.label 'Link para o vídeo do Youtube' %><br />
+        <%= f.text_field :youtube_video, class: "form-control", placeholder: 'https://www.youtube.com/watch?v=MeuVideo', disabled: true %>
+      </div></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <%= f.fields_for :attachments do |attachment_form| %>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="panel-title text-left">Dados do Arquivo:</div>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-4">
+                <%= f.label 'Arquivo' %><br />
+                <%= attachment_form.file_field :attachment, class: 'form-control', disabled: true %>
+                <%= attachment_form.label 'Atual' unless :filename.nil? %><br />
+                <%= attachment_form.text_field :filename, class: 'form-control', disabled: true unless :filename.nil? %>
+                <%= attachment_form.hidden_field :attachment_cache %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label 'Descrição' %><br />
+                <%= attachment_form.text_field :description, class: 'form-control', disabled: true %>
+              </div>
+              <div class="col-md-2">
+                <%= f.label 'Rank' %><br />
+                <%= attachment_form.number_field :rank, class: 'form-control', min: 0, max: 100, disabled: true %>
+              </div>
+              <div class="col-md-12 text-left">
+                <%= attachment_form.link_to_remove 'Remover este arquivo', class: 'btn btn-danger', disabled: true, style: 'margin-top: 20px' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+<% end %>

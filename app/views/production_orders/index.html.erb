@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<header>
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-responsive" src="/assets/logo.png">
+    </div>
+    <div class="col-md-4">
+      <h1 class="text-center">Ordem de Produção</h1>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</header>
+
+<%= render(
+    partial: 'production_orders/filterrific_form',
+    locals: { filterrific: @filterrific}
+    ) %>
+
+<% if can? :create, @production_order %>
+  <div class="well">
+    <%= link_to 'Nova Ordem de Produção', new_production_order_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<div id="filterrific_results">
+  <%= render(
+          partial: 'production_orders/list',
+          locals: { production_orders: @production_orders }
+      ) %>
+</div>

@@ -81,6 +81,15 @@ class Ability
       can :update, ProductionOrder, :responsible_user => user
 
       # DELETE
+
+      # ACTIONS
+      if user.marketing?
+        can :approve, ProductionOrder
+        can :reject, ProductionOrder
+      elsif user.designer?
+        can :check_design, ProductionOrder, :responsible_user => user
+      end
+
     end
   end
 end

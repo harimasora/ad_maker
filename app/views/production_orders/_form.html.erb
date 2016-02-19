@@ -99,6 +99,15 @@
     </div>
 
     <div class="row">
+
+      <div class="col-md-12">
+        <p><%= f.link_to_add 'Adicionar uma categoria', :categories, class: 'btn btn-info' %></p>
+
+        <%= f.fields_for :categories do |builder| %>
+          <%= render 'category_fields', f: builder %>
+        <% end %>
+      </div>
+
       <div class="col-md-4">
         <div class="form-group">
           <label for="category1" class="form-control-label">Categoria 1:</label>
@@ -189,36 +198,23 @@
       <div class="col-md-12 text-center">
         <p><%= f.link_to_add 'Adicionar um arquivo', :attachments, class: 'btn btn-info' %></p>
 
-        <%= f.fields_for :attachments do |attachment_form| %>
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <div class="panel-title text-left">Dados do Arquivo:</div>
-            </div>
-            <div class="panel-body">
-              <div class="col-md-4">
-                <%= f.label 'Arquivo' %><br />
-                <%= attachment_form.file_field :attachment, class: 'form-control' %>
-                <%= attachment_form.label 'Atual' unless :filename.nil? %><br />
-                <%= attachment_form.text_field :filename, class: 'form-control', disabled: true unless :filename.nil? %>
-                <%= attachment_form.hidden_field :attachment_cache %>
-              </div>
-              <div class="col-md-6">
-                <%= f.label 'Descrição' %><br />
-                <%= attachment_form.text_field :description, class: 'form-control' %>
-              </div>
-              <div class="col-md-2">
-                <%= f.label 'Rank' %><br />
-                <%= attachment_form.number_field :rank, class: 'form-control', min: 0, max: 100 %>
-              </div>
-              <div class="col-md-12 text-left">
-                <%= attachment_form.link_to_remove 'Remover este arquivo', class: 'btn btn-danger', style: 'margin-top: 20px' %>
-              </div>
-            </div>
-          </div>
+        <%= f.fields_for :attachments do |builder| %>
+          <%= render 'attachment_fields', f: builder %>
         <% end %>
       </div>
     </div>
   </section>
+
+  <div class="well">
+    <div class="row">
+      <h1 class="text-center">Banners</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+      </div>
+    </div>
+  </div>
 
   <div class="actions">
     <%= f.submit 'SALVAR ORDEM DE PRODUÇÃO', class: 'btn btn-success form-control' %>

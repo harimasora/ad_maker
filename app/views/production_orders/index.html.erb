@@ -17,7 +17,7 @@
     locals: { filterrific: @filterrific}
     ) %>
 
-<% if can? :create, @production_order %>
+<% if can? :create, ProductionOrder %>
   <div class="well">
     <%= link_to 'Nova Ordem de Produção', new_production_order_path, class: 'btn btn-primary' %>
   </div>

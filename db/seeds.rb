@@ -38,3 +38,5 @@ CodeItem.create(short_description: 'EPQuality', description: 'Qualidade', code_t
 CodeItem.create(short_description: 'EPRejected', description: 'Rejeitado', code_table: table)
 CodeItem.create(short_description: 'EPPublishe', description: 'Publicado', code_table: table)
 CodeItem.create(short_description: 'EPCancelle', description: 'Cancelado', code_table: table)
+
+# TODO PURepreses -> PURepresen

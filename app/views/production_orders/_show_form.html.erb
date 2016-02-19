@@ -73,6 +73,19 @@
       </div></div>
     </div>
 
+    <div class="col-md-12">
+      <h2 class="text-center">Categorias</h2>
+      <% if production_order.categories.any? %>
+        <ul>
+          <% production_order.categories.each do |category| %>
+            <li><%= category.name %> / <%= category.subcategory_name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>Nenhuma categoria disponível</p>
+      <% end %>
+    </div>
+
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
@@ -140,33 +153,31 @@
       </div></div>
     </div>
     <div class="row">
-      <div class="col-md-12 text-center">
-        <%= f.fields_for :attachments do |attachment_form| %>
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <div class="panel-title text-left">Dados do Arquivo:</div>
-            </div>
-            <div class="panel-body">
-              <div class="col-md-4">
-                <%= f.label 'Arquivo' %><br />
-                <%= attachment_form.file_field :attachment, class: 'form-control', disabled: true %>
-                <%= attachment_form.label 'Atual' unless :filename.nil? %><br />
-                <%= attachment_form.text_field :filename, class: 'form-control', disabled: true unless :filename.nil? %>
-                <%= attachment_form.hidden_field :attachment_cache %>
-              </div>
-              <div class="col-md-6">
-                <%= f.label 'Descrição' %><br />
-                <%= attachment_form.text_field :description, class: 'form-control', disabled: true %>
-              </div>
-              <div class="col-md-2">
-                <%= f.label 'Rank' %><br />
-                <%= attachment_form.number_field :rank, class: 'form-control', min: 0, max: 100, disabled: true %>
-              </div>
-              <div class="col-md-12 text-left">
-                <%= attachment_form.link_to_remove 'Remover este arquivo', class: 'btn btn-danger', disabled: true, style: 'margin-top: 20px' %>
-              </div>
-            </div>
-          </div>
+      <div class="col-md-12">
+        <h2 class="text-center">Arquivos</h2>
+        <% if production_order.attachments.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Arquivo</th>
+                <th>Descrição</th>
+                <th>Rank</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% production_order.attachments.each do |attachment| %>
+                <tr>
+                  <td><%= attachment.filename %></td>
+                  <td><%= attachment.description %></td>
+                  <td><%= attachment.rank %></td>
+                  <td><%= attachment.content_type %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Nenhum arquivo disponível</p>
         <% end %>
       </div>
     </div>

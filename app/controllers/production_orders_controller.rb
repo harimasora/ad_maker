@@ -107,6 +107,8 @@ class ProductionOrdersController < ApplicationController
 
   # GET /production_orders/1/edit
   def edit
+    @production_order.categories.build
+
     @categories = Api::Group.select_formatted
     if @production_order.subcategory1.nil?
       @subcategories1 = []
@@ -229,6 +231,7 @@ class ProductionOrdersController < ApplicationController
                                                :website,
                                                :youtube_video,
                                                :zip,
+                                               categories_attributes: [:id, :name, :api_id, :subcategory_name, :subcategory_api_id, :_destroy],
                                                attachments_attributes: [:id, :attachment, :attachment_cache, :description, :rank, :state, :_destroy])
     end
 

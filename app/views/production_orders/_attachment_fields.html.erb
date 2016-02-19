@@ -1,0 +1,25 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <div class="panel-title text-left">Dados do Arquivo:</div>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-4">
+      <%= f.label 'Arquivo' %><br />
+      <%= f.file_field :attachment, class: 'form-control' %>
+      <%= f.label 'Atual' unless :filename.nil? %><br />
+      <%= f.text_field :filename, class: 'form-control', disabled: true unless :filename.nil? %>
+      <%= f.hidden_field :attachment_cache %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label 'Descrição' %><br />
+      <%= f.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="col-md-2">
+      <%= f.label 'Rank' %><br />
+      <%= f.number_field :rank, class: 'form-control', min: 0, max: 100 %>
+    </div>
+    <div class="col-md-12 text-left">
+      <%= f.link_to_remove 'Remover este arquivo', class: 'btn btn-danger', style: 'margin-top: 20px' %>
+    </div>
+  </div>
+</div>

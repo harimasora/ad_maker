@@ -5,9 +5,10 @@ class ProductionOrder < ActiveRecord::Base
   belongs_to :responsible_user, class_name: 'User'
   belongs_to :business_unit
 
-  has_many :attachments, as: :attached_item, dependent: :destroy
+  has_many :categories, dependent: :destroy
+  accepts_nested_attributes_for :categories, allow_destroy: true, reject_if: proc { |attributes| attributes[:api_id].nil? }
 
-  # http://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html#method-i-accepts_nested_attributes_for
+  has_many :attachments, as: :attached_item, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes[:attachment].nil? }
 
   validates :business_unit_id, presence: true

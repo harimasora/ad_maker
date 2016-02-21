@@ -8,7 +8,7 @@ describe CodeItem do
     expect(FactoryGirl.build(:code_item, short_description: nil)).to_not be_valid
   end
   it 'is invalid without a description' do
-    expect(FactoryGirl.build(:code_item, short_description: nil)).to_not be_valid
+    expect(FactoryGirl.build(:code_item, description: nil)).to_not be_valid
   end
   it 'short description must be unique' do
     item = FactoryGirl.create(:code_item)

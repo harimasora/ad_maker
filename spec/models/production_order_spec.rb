@@ -20,12 +20,12 @@ describe ProductionOrder do
     expect(item.code).to_not be_nil
   end
   # it 'code must have specific format' do
-    # Example ~ POB2016011154
-    # Porposta de Oferta de Bens -> POB
-    # 2016-1-11 -> 20160111
-    # ID -> 54
+  # Example ~ POB2016011154
+  # Porposta de Oferta de Bens -> POB
+  # 2016-1-11 -> 20160111
+  # ID -> 54
 
-    # item = FactoryGirl.create(:item)
-    # expect(item.identifier =~ /[a-zA-Z]+\d{9,}/).to_not be_nil
+  # item = FactoryGirl.create(:item)
+  # expect(item.identifier =~ /[a-zA-Z]+\d{9,}/).to_not be_nil
   # end
 end

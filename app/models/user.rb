@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   belongs_to :business_unit
 
+  validates :kind, presence: :true, length: {maximum: 10}
+  validates :name, presence: :true, length: {maximum: 50}
+  validates :situation, length: {maximum: 10}
+
   def self.options_for_select
     order('LOWER(name)').map { |e| [e.name, e.id] }
   end

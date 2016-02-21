@@ -1,5 +1,6 @@
 class ProductionOrdersController < ApplicationController
   before_action :set_production_order, only: [:show, :edit, :update, :destroy, :approve]
+  before_action :set_api_data, only: [:show, :new, :edit]
   before_action :set_user_and_business_unit
   load_and_authorize_resource
 
@@ -80,50 +81,22 @@ class ProductionOrdersController < ApplicationController
   # GET /production_orders/1
   # GET /production_orders/1.json
   def show
-    @categories = Api::Group.select_formatted
   end
 
   # GET /production_orders/new
   def new
     @production_order = ProductionOrder.new
-
-    @categories = Api::Group.select_formatted
-    if @production_order.subcategory1.nil?
-      @subcategories1 = []
-    else
-      @subcategories1 = Api::Subgroup.select_formatted(@production_order.category1)
-    end
-    if @production_order.subcategory2.nil?
-      @subcategories2 = []
-    else
-      @subcategories2 = Api::Subgroup.select_formatted(@production_order.category2)
-    end
-    if @production_order.subcategory3.nil?
-      @subcategories3 = []
-    else
-      @subcategories3 = Api::Subgroup.select_formatted(@production_order.category3)
-    end
   end
 
   # GET /production_orders/1/edit
   def edit
-    @production_order.categories.build
-
-    @categories = Api::Group.select_formatted
-    if @production_order.subcategory1.nil?
-      @subcategories1 = []
-    else
-      @subcategories1 = Api::Subgroup.select_formatted(@production_order.category1)
+    @cities = []
+    @districts = []
+    unless @production_order.federation_unit_id.nil?
+      @cities = Api::City.select_formatted(@production_order.federation_unit_id)
     end
-    if @production_order.subcategory2.nil?
-      @subcategories2 = []
-    else
-      @subcategories2 = Api::Subgroup.select_formatted(@production_order.category2)
-    end
-    if @production_order.subcategory3.nil?
-      @subcategories3 = []
-    else
-      @subcategories3 = Api::Subgroup.select_formatted(@production_order.category3)
+    unless @production_order.city_id.nil?
+      @districts = Api::District.select_formatted(@production_order.city_id)
     end
   end
 
@@ -197,6 +170,11 @@ class ProductionOrdersController < ApplicationController
       @production_order = ProductionOrder.find(params[:id])
     end
 
+    def set_api_data
+      @categories = Api::Group.select_formatted
+      @federation_units = Api::FederationUnit.select_formatted
+    end
+
     def set_user_and_business_unit
       @user = current_user
       @business_unit = @user.business_unit
@@ -207,6 +185,12 @@ class ProductionOrdersController < ApplicationController
       params.require(:production_order).permit(:business_unit_id,
                                                :soliciting_user_id,
                                                :responsible_user_id,
+                                               :federation_unit_id,
+                                               :federation_unit_name,
+                                               :city_id,
+                                               :city_name,
+                                               :district_id,
+                                               :district_name,
                                                :address,
                                                :category1,
                                                :category2,
@@ -218,6 +202,7 @@ class ProductionOrdersController < ApplicationController
                                                :description,
                                                :email,
                                                :facebook,
+                                               :keywords,
                                                :logotype,
                                                :name,
                                                :phone1,

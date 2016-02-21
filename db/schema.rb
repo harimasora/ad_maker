@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218132058) do
+ActiveRecord::Schema.define(version: 20160221185813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,9 +113,16 @@ ActiveRecord::Schema.define(version: 20160218132058) do
     t.string   "subcategory2"
     t.string   "subcategory3"
     t.string   "state"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "logotype"
+    t.integer  "federation_unit_id"
+    t.integer  "city_id"
+    t.integer  "district_id"
+    t.string   "federation_unit_name"
+    t.string   "city_name"
+    t.string   "district_name"
+    t.string   "keywords"
   end
 
   create_table "users", force: :cascade do |t|

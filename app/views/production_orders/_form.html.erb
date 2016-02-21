@@ -38,13 +38,48 @@
     </div>
 
     <div class="row">
-      <div class="col-md-8"><div class="form-group">
-        <%= f.label 'Endereço' %><br />
-        <%= f.text_field :address, class: "form-control" %>
+      <div class="col-md-2"><div class="form-group">
+        <%= f.label 'Estado' %>
+        <%= f.select( :federation_unit_id, @federation_units,
+                      { include_blank: ''},
+                      :'data-remote' => 'true', # important for UJS
+                      :'data-url' => url_for(:controller => 'api/cities', :action => 'index'), # we get the data from here!
+                      :'data-type' => 'json', # tell jQuery to parse the response as JSON!
+                      class: 'form-control'
+            ) %>
+        <%= f.hidden_field :federation_unit_name %>
       </div></div>
       <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Cidade' %>
+        <%= f.select( :city_id,
+                      @cities,
+                      { },
+                      :'data-remote' => 'true', # important for UJS
+                      :'data-url' => url_for(:controller => 'api/districts', :action => 'index'), # we get the data from here!
+                      :'data-type' => 'json', # tell jQuery to parse the response as JSON!
+                      class: 'form-control'
+            ) %>
+        <%= f.hidden_field :city_name %>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Bairro' %>
+        <%= f.select( :district_id,
+                      @districts,
+                      { },
+                      class: 'form-control'
+            ) %>
+        <%= f.hidden_field :district_name %>
+      </div></div>
+      <div class="col-md-2"><div class="form-group">
         <%= f.label 'CEP' %><br />
         <%= f.text_field :zip, 'data-inputmask': "'mask': '99999-999'", class: "form-control" %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"><div class="form-group">
+        <%= f.label 'Endereço' %><br />
+        <%= f.text_field :address, class: "form-control" %>
       </div></div>
     </div>
 
@@ -77,6 +112,13 @@
         <%= f.text_field :facebook, class: "form-control" %>
       </div></div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label 'Palavras Chaves' %><br />
+        <%= f.text_field :keywords, class: "form-control" %>
+      </div>
+    </div>
   </section>
 
   <section class="well">
@@ -106,76 +148,6 @@
         <%= f.fields_for :categories do |builder| %>
           <%= render 'category_fields', f: builder %>
         <% end %>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="category1" class="form-control-label">Categoria 1:</label>
-          <%= f.select(
-                  :category1,
-                  @categories,
-                  { include_blank: 'Selecione uma Categoria'},
-                  :'data-remote' => 'true', # important for UJS
-                  :'data-url' => url_for(:controller => 'api/subgroups', :action => 'index'), # we get the data from here!
-                  :'data-type' => 'json', # tell jQuery to parse the response as JSON!
-                  class: 'form-control'
-              ) %>
-        </div>
-        <div class="form-group">
-          <label for="subcategory1" class="form-control-label">Sub Categoria 1:</label>
-          <%= f.select(
-                  :subcategory1,
-                  @subcategories1,
-                  { },
-                  class: 'form-control'
-              ) %>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="category2" class="form-control-label">Categoria 2:</label>
-          <%= f.select(
-                  :category2,
-                  @categories,
-                  { include_blank: 'Selecione uma Categoria'},
-                  :'data-remote' => 'true', # important for UJS
-                  :'data-url' => url_for(:controller => 'api/subgroups', :action => 'index'), # we get the data from here!
-                  :'data-type' => 'json', # tell jQuery to parse the response as JSON!
-                  class: 'form-control'
-              ) %>
-        </div>
-        <div class="form-group">
-          <label for="subcategory2" class="form-control-label">Sub Categoria 2:</label>
-          <%= f.select(
-                  :subcategory2,
-                  @subcategories2,
-                  { },
-                  class: 'form-control'
-              ) %>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="category3" class="form-control-label">Categoria 3:</label>
-          <%= f.select(
-                  :category3,
-                  @categories,
-                  { include_blank: 'Selecione uma Categoria'},
-                  :'data-remote' => 'true', # important for UJS
-                  :'data-url' => url_for(:controller => 'api/subgroups', :action => 'index'), # we get the data from here!
-                  :'data-type' => 'json', # tell jQuery to parse the response as JSON!
-                  class: 'form-control'
-              ) %>
-        </div>
-        <div class="form-group">
-          <label for="subcategory3" class="form-control-label">Sub Categoria 3:</label>
-          <%= f.select(
-                  :subcategory3,
-                  @subcategories3,
-                  { },
-                  class: 'form-control'
-              ) %>
-        </div>
       </div>
     </div>
   </section>

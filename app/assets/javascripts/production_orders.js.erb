@@ -110,6 +110,51 @@ $(document).on("page:change", function() {
     });
   });
 
+  $('#production_order_federation_unit_id').on('ajax:success', function(evt, data, status, xhr) {
+    var cities_box = $('#production_order_city_id');
+
+    cities_box.empty();
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(cities_box);
+    });
+
+    cities_box.change();
+  });
+
+  $('#production_order_city_id').on('ajax:success', function(evt, data, status, xhr) {
+    var districts_box = $('#production_order_district_id');
+
+    districts_box.empty();
+
+    $.each(data, function(index, value) {
+      var opt = $('<option/>');
+      opt.text(value[0]);
+      opt.attr('value', value[1]);
+      opt.appendTo(districts_box);
+    });
+
+    districts_box.change();
+  });
+
+  $('#production_order_federation_unit_id').change( function() {
+    var name = $(this).find('option:selected').text();
+    $('#production_order_federation_unit_name').attr('value',name);
+  });
+
+  $('#production_order_city_id').change( function() {
+    var name = $(this).find('option:selected').text();
+    $('#production_order_city_name').attr('value',name);
+  });
+
+  $('#production_order_district_id').change( function() {
+    var name = $(this).find('option:selected').text();
+    $('#production_order_district_name').attr('value',name);
+  });
+
 });
 
 $(document).on('nested:fieldAdded', function(event){

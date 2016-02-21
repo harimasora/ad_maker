@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :federation_units, only: [:index]
     resources :cities, only: [:index]
+    resources :districts, only: [:index]
     resources :groups, only: [:index]
     resources :subgroups, only: [:index]
   end

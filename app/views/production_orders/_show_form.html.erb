@@ -19,13 +19,28 @@
     </div>
 
     <div class="row">
-      <div class="col-md-8"><div class="form-group">
-        <%= f.label 'Endereço' %><br />
-        <%= f.text_field :address, class: "form-control", disabled: true%>
+      <div class="col-md-2"><div class="form-group">
+        <%= f.label 'Estado' %>
+        <%= f.text_field :federation_unit_name, class: "form-control", disabled: true%>
       </div></div>
       <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Cidade' %>
+        <%= f.text_field :city_name, class: "form-control", disabled: true%>
+      </div></div>
+      <div class="col-md-4"><div class="form-group">
+        <%= f.label 'Bairro' %>
+        <%= f.text_field :district_name, class: "form-control", disabled: true%>
+      </div></div>
+      <div class="col-md-2"><div class="form-group">
         <%= f.label 'CEP' %><br />
         <%= f.text_field :zip, 'data-inputmask': "'mask': '99999-999'", class: "form-control", disabled: true %>
+      </div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12"><div class="form-group">
+        <%= f.label 'Endereço' %><br />
+        <%= f.text_field :address, class: "form-control", disabled: true%>
       </div></div>
     </div>
 
@@ -58,6 +73,13 @@
         <%= f.text_field :facebook, class: "form-control", disabled: true %>
       </div></div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.label 'Palavras Chaves' %><br />
+        <%= f.text_field :keywords, class: "form-control", disabled: true %>
+      </div>
+    </div>
   </section>
 
   <section class="well">
@@ -73,69 +95,21 @@
       </div></div>
     </div>
 
-    <div class="col-md-12">
-      <h2 class="text-center">Categorias</h2>
-      <% if production_order.categories.any? %>
-        <ul>
-          <% production_order.categories.each do |category| %>
-            <li><%= category.name %> / <%= category.subcategory_name %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p>Nenhuma categoria disponível</p>
-      <% end %>
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center">Categorias</h2>
+        <% if production_order.categories.any? %>
+          <ul>
+            <% production_order.categories.each do |category| %>
+              <li><%= category.name %> / <%= category.subcategory_name %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>Nenhuma categoria disponível</p>
+        <% end %>
+      </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="category1" class="form-control-label">Categoria 1:</label>
-          <%= f.text_field(
-                  :category1,
-                  class: 'form-control', disabled: true
-              ) %>
-        </div>
-        <div class="form-group">
-          <label for="subcategory1" class="form-control-label">Sub Categoria 1:</label>
-          <%= f.text_field(
-                  :subcategory1,
-                  class: 'form-control', disabled: true
-              ) %>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="category2" class="form-control-label">Categoria 2:</label>
-          <%= f.text_field(
-                  :category2,
-                  class: 'form-control', disabled: true
-              ) %>
-        </div>
-        <div class="form-group">
-          <label for="subcategory2" class="form-control-label">Sub Categoria 2:</label>
-          <%= f.text_field(
-                  :subcategory2,
-                  class: 'form-control', disabled: true
-              ) %>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="category3" class="form-control-label">Categoria 3:</label>
-          <%= f.text_field(
-                  :category3,
-                  class: 'form-control', disabled: true
-              ) %>
-        </div>
-        <div class="form-group">
-          <label for="subcategory3" class="form-control-label">Sub Categoria 3:</label>
-          <%= f.text_field(
-                  :subcategory3,
-                  class: 'form-control', disabled: true
-              ) %>
-        </div>
-      </div>
-    </div>
   </section>
 
   <section class="well">

@@ -22,7 +22,7 @@ table = CodeTable.where(name: 'Perfil de Usuário').first
 CodeItem.create(short_description: 'PUAdminist', description: 'Administrador', code_table: table)
 CodeItem.create(short_description: 'PUMaster', description: 'Master Franqueado', code_table: table)
 CodeItem.create(short_description: 'PUFranquea', description: 'Franqueado', code_table: table)
-CodeItem.create(short_description: 'PURepreses', description: 'Representante', code_table: table)
+CodeItem.create(short_description: 'PURepresen', description: 'Representante', code_table: table)
 CodeItem.create(short_description: 'PUDesigner', description: 'Designer', code_table: table)
 CodeItem.create(short_description: 'PUMarketin', description: 'Marketing', code_table: table)
 table = CodeTable.where(name: 'Situação do Usuário').first
@@ -38,5 +38,3 @@ CodeItem.create(short_description: 'EPQuality', description: 'Qualidade', code_t
 CodeItem.create(short_description: 'EPRejected', description: 'Rejeitado', code_table: table)
 CodeItem.create(short_description: 'EPPublishe', description: 'Publicado', code_table: table)
 CodeItem.create(short_description: 'EPCancelle', description: 'Cancelado', code_table: table)
-
-# TODO PURepreses -> PURepresen

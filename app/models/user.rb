@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def representative?
-    kind == 'PURepreses'
+    kind == 'PURepresen'
   end
 
   def designer?

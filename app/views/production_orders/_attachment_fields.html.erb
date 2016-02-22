@@ -6,8 +6,10 @@
     <div class="col-md-4">
       <%= f.label 'Arquivo' %><br />
       <%= f.file_field :attachment, class: 'form-control' %>
-      <%= f.label 'Atual' unless :filename.nil? %><br />
-      <%= f.text_field :filename, class: 'form-control', disabled: true unless :filename.nil? %>
+      <% unless :filename.blank? %>
+        <%= f.label 'Atual' %><br />
+        <%= f.text_field :filename, class: 'form-control', disabled: true %>
+      <% end %>
       <%= f.hidden_field :attachment_cache %>
     </div>
     <div class="col-md-6">

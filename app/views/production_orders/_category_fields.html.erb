@@ -1,22 +1,26 @@
-<fieldset>
-  <%= f.label :api_id, 'Categoria' %>
-  <%= f.select( :api_id, @categories,
-          { include_blank: 'Selecione uma Categoria'},
-          :'data-remote' => 'true', # important for UJS
-          :'data-url' => url_for(:controller => 'api/subgroups', :action => 'index'), # we get the data from here!
-          :'data-type' => 'json', # tell jQuery to parse the response as JSON!
-          class: 'form-control category'
-      ) %>
-  <%= f.hidden_field :name, class: 'category' %>
-  <%= f.label :subcategory_api_id, 'Sub Categoria' %>
-  <%= f.select(
-          :subcategory_api_id,
-          [ ],
-          { },
-          class: 'form-control subcategory'
-      ) %>
-  <%= f.hidden_field :subcategory_name, class: 'subcategory' %>
-  <div class="col-md-12 text-left">
+<fieldset class="row" style="margin-top: 10px;">
+  <div class="col-md-5">
+    <%= f.label :api_id, 'Categoria' %>
+    <%= f.select( :api_id, @categories,
+                  { include_blank: 'Selecione uma Categoria'},
+                  :'data-remote' => 'true', # important for UJS
+                  :'data-url' => url_for(:controller => 'api/subgroups', :action => 'index'), # we get the data from here!
+                  :'data-type' => 'json', # tell jQuery to parse the response as JSON!
+                  class: 'form-control category'
+        ) %>
+    <%= f.hidden_field :name, class: 'category' %>
+  </div>
+  <div class="col-md-5">
+    <%= f.label :subcategory_api_id, 'Sub Categoria' %>
+    <%= f.select(
+            :subcategory_api_id,
+            [ ],
+            { },
+            class: 'form-control subcategory'
+        ) %>
+    <%= f.hidden_field :subcategory_name, class: 'subcategory' %>
+  </div>
+  <div class="col-md-2">
     <%= f.link_to_remove 'Remover Categoria', class: 'btn btn-danger', style: 'margin-top: 20px' %>
   </div>
 </fieldset>

@@ -52,7 +52,7 @@
       <div class="col-md-4"><div class="form-group">
         <%= f.label 'Cidade' %>
         <%= f.select( :city_id,
-                      @cities,
+                      @cities || [],
                       { },
                       :'data-remote' => 'true', # important for UJS
                       :'data-url' => url_for(:controller => 'api/districts', :action => 'index'), # we get the data from here!
@@ -64,7 +64,7 @@
       <div class="col-md-4"><div class="form-group">
         <%= f.label 'Bairro' %>
         <%= f.select( :district_id,
-                      @districts,
+                      @districts || [],
                       { },
                       class: 'form-control'
             ) %>
@@ -125,7 +125,7 @@
     <div class="row">
       <div class="col-md-8"><div class="form-group">
         <%= f.label 'Texto Publicitário' %><br />
-        <%= f.text_area :publicity_text, class: "form-control", rows: 10 %>
+        <%= f.text_area :publicity_text, class: "form-control", rows: 1 %>
       </div></div>
       <div class="col-md-4"><div class="form-group">
         <%= f.label 'Logotipo' %><br />
@@ -142,8 +142,8 @@
 
     <div class="row">
 
-      <div class="col-md-12">
-        <p><%= f.link_to_add 'Adicionar uma categoria', :categories, class: 'btn btn-info' %></p>
+      <div class="col-md-12 text-center">
+        <p><%= f.link_to_add 'Adicionar uma categoria', :categories, class: 'btn btn-info', style: 'margin-top: 10px;' %></p>
 
         <%= f.fields_for :categories do |builder| %>
           <%= render 'category_fields', f: builder %>

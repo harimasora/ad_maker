@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222131023) do
+ActiveRecord::Schema.define(version: 20160222143716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(version: 20160222131023) do
   end
 
   add_index "attachments", ["attached_item_type", "attached_item_id"], name: "index_attachments_on_attached_item_type_and_attached_item_id", using: :btree
+
+  create_table "banners", force: :cascade do |t|
+    t.string   "kind"
+    t.string   "description"
+    t.string   "state"
+    t.string   "keywords"
+    t.integer  "rank"
+    t.string   "image"
+    t.integer  "production_order_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "banners", ["production_order_id"], name: "index_banners_on_production_order_id", using: :btree
 
   create_table "business_units", force: :cascade do |t|
     t.integer  "federation_unit_id"
@@ -159,4 +173,5 @@ ActiveRecord::Schema.define(version: 20160222131023) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
+  add_foreign_key "banners", "production_orders"
 end

@@ -182,8 +182,12 @@
       <h1 class="text-center">Banners</h1>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 text-center">
+        <p><%= f.link_to_add 'Adicionar um banner', :banners, class: 'btn btn-info' %></p>
 
+        <%= f.fields_for :banners do |builder| %>
+          <%= render 'banners/fields', f: builder %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -218,6 +218,7 @@ class ProductionOrdersController < ApplicationController
                                                :website,
                                                :youtube_video,
                                                :zip,
+                                               banners_attributes: [:id, :image, :image_cache, :description, :keywords, :kind, :rank, :state,  :_destroy],
                                                categories_attributes: [:id, :name, :api_id, :subcategory_name, :subcategory_api_id, :_destroy],
                                                attachments_attributes: [:id, :attachment, :attachment_cache, :description, :rank, :state, :_destroy])
     end

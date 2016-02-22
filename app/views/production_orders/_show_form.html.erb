@@ -157,4 +157,38 @@
     </div>
   </section>
 
+  <section class="well">
+    <div class="row">
+      <h1 class="text-center">Banners</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <% if production_order.banners.any? %>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Arquivo</th>
+              <th>Descrição</th>
+              <th>Rank</th>
+              <th>Tipo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% production_order.banners.each do |banner| %>
+              <tr>
+                <td><%= banner.image.file.original_filename %></td>
+                <td><%= banner.description %></td>
+                <td><%= banner.rank %></td>
+                <td><%= code_item_description(banner.kind) %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Nenhum banner disponível</p>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
 <% end %>

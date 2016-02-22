@@ -1,0 +1,35 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <div class="panel-title text-left">Dados do Banner:</div>
+  </div>
+  <div class="panel-body ">
+    <div class="col-md-2">
+      <%= f.label 'Tipo' %>
+      <%= f.select( :kind, Api::Util.select_formatted(CodeTable.where(name: 'Tipo de Banner').first.code_items, 'description', 'short_description'),
+                    { },
+                    class: 'form-control category'
+          ) %>
+    </div>
+
+    <div class="col-md-3">
+      <%= f.label 'Arquivo' %><br />
+      <%= f.file_field :image, class: 'form-control' %>
+      <%= f.hidden_field :image_cache %>
+    </div>
+    <div class="col-md-5">
+      <%= f.label 'Descrição' %><br />
+      <%= f.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="col-md-2">
+      <%= f.label 'Rank' %><br />
+      <%= f.number_field :rank, class: 'form-control', min: 0, max: 100 %>
+    </div>
+    <div class="col-md-10">
+      <%= f.label 'Palavras Chaves' %><br />
+      <%= f.text_field :keywords, class: 'form-control' %>
+    </div>
+    <div class="col-md-2 text-left">
+      <%= f.link_to_remove 'Remover este arquivo', class: 'btn btn-danger', style: 'margin-top: 20px' %>
+    </div>
+  </div>
+</div>

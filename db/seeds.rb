@@ -8,9 +8,11 @@
 
 # Code Tables
 CodeTable.create(name: 'Tipo de Unidade de Negócio', kind: 'admin')
+CodeTable.create(name: 'Tipo de Banner', kind: 'admin')
 CodeTable.create(name: 'Perfil de Usuário', kind: 'admin')
 CodeTable.create(name: 'Situação do Usuário', kind: 'admin')
 CodeTable.create(name: 'Situação do Processo', kind: 'admin')
+CodeTable.create(name: 'Situação do Banner', kind: 'admin')
 CodeTable.create(name: 'Etapa do Processo', kind: 'admin')
 
 # Code Items
@@ -18,6 +20,10 @@ table = CodeTable.where(name: 'Tipo de Unidade de Negócio').first
 CodeItem.create(short_description: 'TUNFranque', description: 'Franqueadora', code_table: table)
 CodeItem.create(short_description: 'TUNMaster', description: 'Master Franquia', code_table: table)
 CodeItem.create(short_description: 'TUNFranqui', description: 'Franquia', code_table: table)
+table = CodeTable.where(name: 'Tipo de Banner').first
+CodeItem.create(short_description: 'TPTopo', description: 'Topo', code_table: table)
+CodeItem.create(short_description: 'TPTopoCate', description: 'Topo de Categoria', code_table: table)
+CodeItem.create(short_description: 'TPLateCate', description: 'Lateral de Categoria', code_table: table)
 table = CodeTable.where(name: 'Perfil de Usuário').first
 CodeItem.create(short_description: 'PUAdminist', description: 'Administrador', code_table: table)
 CodeItem.create(short_description: 'PUMaster', description: 'Master Franqueado', code_table: table)
@@ -31,6 +37,9 @@ CodeItem.create(short_description: 'SUInativo', description: 'Inativo', code_tab
 table = CodeTable.where(name: 'Situação do Processo').first
 CodeItem.create(short_description: 'SPAtivo', description: 'Ativo', code_table: table)
 CodeItem.create(short_description: 'SPInativo', description: 'Inativo', code_table: table)
+table = CodeTable.where(name: 'Situação do Banner').first
+CodeItem.create(short_description: 'SBAtivo', description: 'Ativo', code_table: table)
+CodeItem.create(short_description: 'SBInativo', description: 'Inativo', code_table: table)
 table = CodeTable.where(name: 'Etapa do Processo').first
 CodeItem.create(short_description: 'EPSubmitte', description: 'Submetido', code_table: table)
 CodeItem.create(short_description: 'EPDesign', description: 'Design', code_table: table)

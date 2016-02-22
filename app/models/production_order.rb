@@ -11,6 +11,9 @@ class ProductionOrder < ActiveRecord::Base
   has_many :attachments, as: :attached_item, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes[:attachment].nil? }
 
+  has_many :banners
+  accepts_nested_attributes_for :banners, allow_destroy: true, reject_if: proc { |attributes| attributes[:image].nil? }
+
   validates :business_unit_id, presence: true
   validates :soliciting_user_id, presence: true
   # validates_uniqueness_of :code

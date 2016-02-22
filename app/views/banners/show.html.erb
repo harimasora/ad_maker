@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @banner.kind %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @banner.description %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @banner.state %>
+</p>
+
+<p>
+  <strong>Keywords:</strong>
+  <%= @banner.keywords %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @banner.rank %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @banner.image %>
+</p>
+
+<p>
+  <strong>Production order:</strong>
+  <%= @banner.production_order %>
+</p>
+
+<%= link_to 'Edit', edit_banner_path(@banner) %> |
+<%= link_to 'Back', banners_path %>

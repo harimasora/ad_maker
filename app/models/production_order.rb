@@ -14,6 +14,10 @@ class ProductionOrder < ActiveRecord::Base
   has_many :banners
   accepts_nested_attributes_for :banners, allow_destroy: true, reject_if: proc { |attributes| attributes[:image].nil? }
 
+  def state_enum
+    ProductionOrder.state_machine.states.map { |s| [s.human_name, s.name] }
+  end
+
   validates :business_unit_id, presence: true
   validates :soliciting_user_id, presence: true
   # validates_uniqueness_of :code

@@ -15,11 +15,15 @@ pt-BR:
         rejected: 'Rejeitado'
         published: 'Publicado'
         cancelled: 'Cancelado'
+        active: 'Ativo'
+        inactive: 'Inativo'
       events: # you can also define translations for the events
         approve: 'Aprovar'
         cancel: 'Cancelar'
         check_design: 'Checar Design'
         reject: 'Rejeitar'
+        activate: 'Ativar'
+        deactivate: 'Desativar'
   date:
     abbr_day_names:
     - Dom
@@ -53,8 +57,8 @@ pt-BR:
     - Sábado
     formats:
       default: "%d/%m/%Y"
-      long: "%d de %B de %Y"
-      short: "%d de %B"
+      long: "%d %B %Y"
+      short: "%d %B"
     month_names:
     -
     - Janeiro
@@ -165,7 +169,7 @@ pt-BR:
       one_page:
         display_entries: "%{count} registro(s) encontrado(s) para %{entry_name}."
       more_pages:
-        display_entries: "%{total} registros encontrados. Mostrando　%{first} - %{last}"
+        display_entries: "Mostrando registros %{first} até %{last} de %{total} no total"
   number:
     currency:
       format:

@@ -2,6 +2,10 @@ class BusinessUnit < ActiveRecord::Base
   has_many :users
   has_many :production_orders
 
+  def kind_enum
+    Api::Util.select_formatted(CodeTable.where(name: 'Tipo de Unidade de Negócio').first.code_items, 'description', 'short_description')
+  end
+
   validates :name, presence: true, length: { maximum: 50 }
   validates :code, length: { maximum: 8 }
   validates :federation_unit_name, length: { maximum: 2 }

@@ -10,6 +10,26 @@ class User < ActiveRecord::Base
   validates :name, presence: :true, length: {maximum: 50}
   validates :situation, length: {maximum: 10}
 
+  def kind_enum
+    Api::Util.select_formatted(CodeTable.where(name: 'Perfil de Usuário').first.code_items, 'description', 'short_description')
+  end
+
+  def state_enum
+    User.state_machine.states.map { |s| [s.human_name, s.name] }
+  end
+
+  state_machine :state, :initial => :active do
+
+    event :activate do
+      transition :inactive => :active
+    end
+
+    event :deactivate do
+      transition :active => :inactive
+    end
+
+  end
+
   def self.options_for_select
     order('LOWER(name)').map { |e| [e.name, e.id] }
   end

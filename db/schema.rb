@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222143716) do
+ActiveRecord::Schema.define(version: 20160222172919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,12 +107,6 @@ ActiveRecord::Schema.define(version: 20160222143716) do
     t.text     "publicity_text"
     t.text     "description"
     t.string   "youtube_video"
-    t.string   "category1"
-    t.string   "category2"
-    t.string   "category3"
-    t.string   "subcategory1"
-    t.string   "subcategory2"
-    t.string   "subcategory3"
     t.string   "state"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false

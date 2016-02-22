@@ -1,6 +1,10 @@
 class Attachment < ActiveRecord::Base
   mount_uploader :attachment, AttachmentUploader
 
+  def state_enum
+    Attachment.state_machine.states.map { |s| [s.human_name, s.name] }
+  end
+
   # Associations
 
   belongs_to :attached_item, polymorphic: true

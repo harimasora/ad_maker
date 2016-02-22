@@ -204,6 +204,8 @@ class ProductionOrdersController < ApplicationController
                                                :facebook,
                                                :keywords,
                                                :logotype,
+                                               :logotype_cache,
+                                               :remove_logotype,
                                                :name,
                                                :phone1,
                                                :phone2,

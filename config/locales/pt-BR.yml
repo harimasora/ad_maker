@@ -161,6 +161,11 @@ pt-BR:
       create: Criar %{model}
       submit: Salvar %{model}
       update: Atualizar %{model}
+    page_entries_info:
+      one_page:
+        display_entries: "%{count} registro(s) encontrado(s) para %{entry_name}."
+      more_pages:
+        display_entries: "%{total} registros encontrados. Mostrando　%{first} - %{last}"
   number:
     currency:
       format:

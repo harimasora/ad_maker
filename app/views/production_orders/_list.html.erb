@@ -5,7 +5,7 @@
             reset_filterrific_url
         ) %>
   </div>
-  <%= page_entries_info production_orders %>
+  <%= page_entries_info(production_orders, :entry_name => 'Ordem de Produção') %>
   <%# add an automated spinner to your form when the list is refreshed %>
   <%= render_filterrific_spinner %>
 </div>

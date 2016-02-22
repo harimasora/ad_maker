@@ -38,3 +38,6 @@ CodeItem.create(short_description: 'EPQuality', description: 'Qualidade', code_t
 CodeItem.create(short_description: 'EPRejected', description: 'Rejeitado', code_table: table)
 CodeItem.create(short_description: 'EPPublishe', description: 'Publicado', code_table: table)
 CodeItem.create(short_description: 'EPCancelle', description: 'Cancelado', code_table: table)
+
+b = BusinessUnit.create(federation_unit_id: 1, federation_unit_name: 'DF', city_id: '1', city_name: 'Brasília', kind: 'TUNFranque', name: 'Matriz')
+b.users << User.create(email: 'zidalo@gmail.com', password: '1425Merc0#', name: 'Danilo Maia Rodrigues', kind: 'PUAdminist')

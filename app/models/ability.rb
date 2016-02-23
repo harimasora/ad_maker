@@ -23,6 +23,8 @@ class Ability
         can :read, ProductionOrder, :business_unit => user.business_unit
       elsif user.designer?
         can :read, ProductionOrder, :responsible_user => user, :state => %w(rejected designing)
+      elsif user.marketing?
+        can :read, ProductionOrder
       end
 
       # UPDATE
@@ -35,6 +37,8 @@ class Ability
         can :update, ProductionOrder, :business_unit => user.business_unit
       elsif user.representative?
         can :update, ProductionOrder, :soliciting_user => user, :state => %w(submitted)
+      elsif user.marketing?
+        can :update, ProductionOrder
       end
 
       # DELETE

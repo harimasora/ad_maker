@@ -28,23 +28,31 @@
     <div class="panel-title">AÇÕES</div>
   </div>
   <div class="panel-body">
-    <%= button_to 'Aprovar',
-                  {action: 'approve', production_order: {id: @production_order.id}},
-                  method: :put,
-                  class: 'btn btn-success' if @production_order.can_approve? %>
-    <%= button_to 'Checar Design',
-                  {action: 'check_design', production_order: {id: @production_order.id}},
-                  method: :put,
-                  class: 'btn btn-info' if @production_order.can_check_design? %>
-    <%= button_to 'Rejeitar',
-                  {action: 'reject', production_order: {id: @production_order.id}},
-                  method: :put,
-                  class: 'btn btn-warning' if @production_order.can_reject? %>
-    <%= button_to 'Cancelar',
-                  {action: 'cancel', production_order: {id: @production_order.id}},
-                  method: :put,
-                  class: 'btn btn-danger',
-                  data: { confirm: 'Deseja realmente cancelar esta ordem de produção? Esta ação não poderá ser desfeita.' }if @production_order.can_cancel? %>
+    <% if can? :approve, ProductionOrder %>
+      <%= button_to 'Aprovar',
+                    {action: 'approve', production_order: {id: @production_order.id}},
+                    method: :put,
+                    class: 'btn btn-success' if @production_order.can_approve? %>
+    <% end %>
+    <% if can? :check_design, ProductionOrder %>
+      <%= button_to 'Checar Design',
+                    {action: 'check_design', production_order: {id: @production_order.id}},
+                    method: :put,
+                    class: 'btn btn-info' if @production_order.can_check_design? %>
+    <% end %>
+    <% if can? :reject, ProductionOrder %>
+      <%= button_to 'Rejeitar',
+                    {action: 'reject', production_order: {id: @production_order.id}},
+                    method: :put,
+                    class: 'btn btn-warning' if @production_order.can_reject? %>
+    <% end %>
+    <% if can? :cancel, ProductionOrder %>
+      <%= button_to 'Cancelar',
+                    {action: 'cancel', production_order: {id: @production_order.id}},
+                    method: :put,
+                    class: 'btn btn-danger',
+                    data: { confirm: 'Deseja realmente cancelar esta ordem de produção? Esta ação não poderá ser desfeita.' }if @production_order.can_cancel? %>
+    <% end %>
   </div>
 </section>
 

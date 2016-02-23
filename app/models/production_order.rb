@@ -24,6 +24,9 @@ class ProductionOrder < ActiveRecord::Base
 
   after_create :initialize_code
 
+  before_create :set_1st_responsible
+  before_update :set_responsible
+
   def initialize_code
     str = id.to_s
     str += '-'
@@ -250,4 +253,48 @@ class ProductionOrder < ActiveRecord::Base
   def duration
     ((Time.now - created_at)/1.day)
   end
+
+  def set_responsible
+    puts self.changed_attributes.inspect
+    unless self.changed_attributes[:state].nil?
+      puts self.changes.inspect
+      if self.changes[:state].last == 'designing'
+        set_designer_as_responsible
+      elsif self.changes[:state].last == 'qualifying'
+        set_marketing_as_responsible
+      elsif self.changes[:state].last == 'rejected'
+        set_designer_as_responsible
+      elsif self.changes[:state].last == 'published'
+        remove_responsible
+      elsif self.changes[:state].last == 'cancelled'
+        remove_responsible
+      end
+    end
+  end
+
+  def remove_responsible
+    self.responsible_user = nil
+  end
+
+  def set_designer_as_responsible
+    if self.original_designer_id.nil?
+      responsible = User.designer.where(business_unit: self.business_unit).sample
+      self.original_designer_id = responsible.try(:id)
+      self.responsible_user = responsible
+    else
+      self.responsible_user_id = self.original_designer_id
+    end
+  end
+
+  def set_marketing_as_responsible
+    responsible = User.marketing.sample
+    self.responsible_user = responsible
+  end
+
+  def set_1st_responsible
+    responsible = User.marketing.sample
+    self.responsible_user = responsible
+  end
 end
+
+# p = FactoryGirl.create(:production_order)

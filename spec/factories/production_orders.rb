@@ -17,11 +17,5 @@ FactoryGirl.define do
     publicity_text { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraphs(2) }
     youtube_video { Faker::Internet.url('youtube.com') }
-    category1 { Faker::Commerce.department(2) }
-    category2 { Faker::Commerce.department(2) }
-    category3 { Faker::Commerce.department(2) }
-    subcategory1 { Faker::Commerce.department(1) }
-    subcategory2 { Faker::Commerce.department(1) }
-    subcategory3 { Faker::Commerce.department(1) }
   end
 end

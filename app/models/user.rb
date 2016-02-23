@@ -6,6 +6,13 @@ class User < ActiveRecord::Base
 
   belongs_to :business_unit
 
+  scope :admin, -> { where(kind: 'PUAdminist') }
+  scope :master, -> { where(kind: 'PUMaster') }
+  scope :franchisee, -> { where(kind: 'PUFranquea') }
+  scope :representative, -> { where(kind: 'PURepresen') }
+  scope :designer, -> { where(kind: 'PUDesigner') }
+  scope :marketing, -> { where(kind: 'PUMarketin') }
+
   validates :kind, presence: :true, length: {maximum: 10}
   validates :name, presence: :true, length: {maximum: 50}
   validates :situation, length: {maximum: 10}

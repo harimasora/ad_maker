@@ -1,0 +1,47 @@
+$(document).on('rails_admin.dom_ready', function(){
+  var updateAttributes;
+
+  updateAttributes = function(selects) {
+    var federation_unit;
+    if (selects == null) {
+      selects = $("select[id^=business_unit_city_id]");
+    }
+    federation_unit = $('#business_unit_federation_unit_id').val();
+
+    $.ajax('/api/cities', {
+      type: 'GET',
+      dataType: 'json',
+      data: { business_unit: {federation_unit_id: federation_unit} },
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(textStatus + ": " + errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {
+        var elements = [];
+
+        // we got a JSON array in data, iterate through it
+        $.each(data, function(index, value) {
+
+          // append an option
+          var opt = $('<option/>');
+
+          // value is an array: [:name, :id]
+          opt.text(value[0]);
+          opt.attr('value', value[1]);
+          // append to select
+          elements.push(opt);
+        });
+
+        selects.each(function() {
+          var select, selected;
+          select = $(this);
+          selected = select.val();
+          select.filteringSelect("destroy").find("option:gt(0)").remove().end().append(elements).filteringSelect().val(select);
+        });
+      }
+    });
+  };
+
+  $(document).on('change', '#business_unit_federation_unit_id', function(event) {
+    updateAttributes();
+  });
+});

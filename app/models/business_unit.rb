@@ -2,6 +2,14 @@ class BusinessUnit < ActiveRecord::Base
   has_many :users
   has_many :production_orders
 
+  def federation_unit_id_enum
+    Api::FederationUnit.select_formatted
+  end
+
+  def city_id_enum
+    []
+  end
+
   def kind_enum
     Api::Util.select_formatted(CodeTable.where(name: 'Tipo de Unidade de Negócio').first.code_items, 'description', 'short_description')
   end

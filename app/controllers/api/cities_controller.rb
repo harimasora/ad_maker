@@ -14,6 +14,12 @@ class Api::CitiesController < ApplicationController
       end
     end
 
+    unless params[:business_unit].blank?
+      unless params[:business_unit][:federation_unit_id].blank?
+        uf = params[:business_unit][:federation_unit_id]
+      end
+    end
+
     if uf.blank?
       @cities = []
     else

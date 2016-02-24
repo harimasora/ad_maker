@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :banners
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -21,6 +20,7 @@ Rails.application.routes.draw do
   put 'production_orders/:id/reject' => 'production_orders#reject'
 
   resources :business_units, only: [:index]
+  resources :banners
   resources :users, only: [:index]
 
   namespace :api do

@@ -14,5 +14,9 @@
 
 <%= render partial: 'show_form', locals: {production_order: @production_order} %>
 
-<%= link_to 'Edit', edit_production_order_path(@production_order) %> |
-<%= link_to 'Back', production_orders_path %>
+<section class="row" >
+  <div class="col-md-12">
+    <%= link_to 'Editar', edit_production_order_path(@production_order), class: 'btn btn-primary' %> |
+    <%= link_to 'Voltar', production_orders_path, class: 'btn btn-danger' %>
+  </div>
+</section>

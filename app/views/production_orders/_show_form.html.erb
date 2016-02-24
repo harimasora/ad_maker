@@ -184,6 +184,9 @@
             <% end %>
             </tbody>
           </table>
+          <% production_order.banners.each do |banner| %>
+            <%= image_tag banner.image, class: 'img-thumbnail' %>
+          <% end %>
         <% else %>
           <p>Nenhum banner disponível</p>
         <% end %>

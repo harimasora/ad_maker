@@ -191,4 +191,19 @@
     </div>
   </section>
 
+  <% unless @production_order.rejection_reasons.blank? %>
+    <section class="well">
+      <div class="row">
+        <h1 class="text-center">Motivos de Rejeição</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <%= f.fields_for :rejection_reasons do |reason| %>
+            <%= reason.text_area :description, class: 'form-control', rows: 5, disabled: true unless reason.object.description.blank? %>
+          <% end %><br>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
 <% end %>

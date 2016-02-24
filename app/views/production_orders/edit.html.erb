@@ -1,13 +1,11 @@
-<header>
-  <div class="row">
-    <div class="col-md-4">
-      <img class="img-responsive" src="/assets/logo.png">
-    </div>
-    <div class="col-md-4">
-      <h1 class="text-center">Editando Ordem de Produção</h1>
-    </div>
-    <div class="col-md-4"></div>
+<header class="row">
+  <div class="col-md-4">
+    <img class="img-responsive" src="/assets/logo.png">
   </div>
+  <div class="col-md-4">
+    <h1 class="text-center">Editando Ordem de Produção</h1>
+  </div>
+  <div class="col-md-4"></div>
 </header>
 
 <section class="row">
@@ -25,15 +23,15 @@
   </div>
 </section>
 
-<section>
-  <%= render 'actions' %>
+<section class="row">
+  <div class="col-md-12">
+    <%= render 'form' %>
+  </div>
 </section>
 
-<section>
-  <%= render 'form' %>
-</section>
-
-<section style="margin-top: 20px">
-  <%= link_to 'Visualizar', @production_order, class: 'btn btn-primary' %> |
-  <%= link_to 'Voltar', production_orders_path, class: 'btn btn-danger' %>
+<section class="row" >
+  <div class="col-md-12">
+    <%= link_to 'Visualizar', @production_order, class: 'btn btn-primary' %> |
+    <%= link_to 'Voltar', production_orders_path, class: 'btn btn-danger' %>
+  </div>
 </section>

@@ -1,32 +1,25 @@
+<% if ((can? :approve, ProductionOrder) && (@production_order.can_approve?)) ||
+    ((can? :check_design, ProductionOrder) && (@production_order.can_check_design?)) ||
+    ((can? :reject, ProductionOrder) && (@production_order.can_reject?)) ||
+    ((can? :cancel, ProductionOrder) && (@production_order.can_cancel?)) %>
 <div class="panel panel-success">
   <div class="panel-heading">
     <div class="panel-title">AÇÕES</div>
   </div>
   <div class="panel-body">
-    <% if can? :approve, ProductionOrder %>
-      <%= button_to 'Aprovar',
-                    {action: 'approve', production_order: {id: @production_order.id}},
-                    method: :put,
-                    class: 'btn btn-success' if @production_order.can_approve? %>
+    <% if ((can? :reject, ProductionOrder) && (@production_order.can_reject?)) %>
+      <div class="well">
+        <h4>Motivo:</h4>
+        <%= f.fields_for :rejection_reasons do |reason| %>
+          <%= reason.text_area :description, class: 'form-control', rows: 5 if reason.object.description.blank? %>
+        <% end %><br>
+        <%= link_to 'Rejeitar', {action: 'reject', production_order: {id: @production_order.id}}, method: :put, class: 'btn btn-warning pull-right' %><br>
+      </div>
     <% end %>
-    <% if can? :check_design, ProductionOrder %>
-      <%= button_to 'Checar Design',
-                    {action: 'check_design', production_order: {id: @production_order.id}},
-                    method: :put,
-                    class: 'btn btn-info' if @production_order.can_check_design? %>
-    <% end %>
-    <% if can? :reject, ProductionOrder %>
-      <%= button_to 'Rejeitar',
-                    {action: 'reject', production_order: {id: @production_order.id}},
-                    method: :put,
-                    class: 'btn btn-warning' if @production_order.can_reject? %>
-    <% end %>
-    <% if can? :cancel, ProductionOrder %>
-      <%= button_to 'Cancelar',
-                    {action: 'cancel', production_order: {id: @production_order.id}},
-                    method: :put,
-                    class: 'btn btn-danger',
-                    data: { confirm: 'Deseja realmente cancelar esta ordem de produção? Esta ação não poderá ser desfeita.' }if @production_order.can_cancel? %>
-    <% end %>
+    <%= link_to 'Aprovar', {action: 'approve', production_order: {id: @production_order.id}}, method: :put, class: 'btn btn-success' if ((can? :approve, ProductionOrder) && (@production_order.can_approve?) && (@production_order.state != 'qualifying')) %>
+    <%= link_to 'Checar Design', {action: 'check_design', production_order: {id: @production_order.id}}, method: :put, class: 'btn btn-info' if ((can? :check_design, ProductionOrder) && (@production_order.can_check_design?))  %>
+    <%= link_to 'Publicar', {action: 'approve', production_order: {id: @production_order.id}}, method: :put, class: 'btn btn-success', data: { confirm: 'Deseja realmente publicar esta ordem de produção? Esta ação não poderá ser desfeita.' } if ((can? :approve, ProductionOrder) && (@production_order.can_approve?) && (@production_order.state == 'qualifying')) %>
+    <%= link_to 'Cancelar', {action: 'cancel', production_order: {id: @production_order.id}}, method: :put, class: 'btn btn-danger', data: { confirm: 'Deseja realmente cancelar esta ordem de produção? Esta ação não poderá ser desfeita.' } if ((can? :cancel, ProductionOrder) && (@production_order.can_cancel?)) %>
   </div>
 </div>
+<% end %>

@@ -6,13 +6,16 @@ class ProductionOrder < ActiveRecord::Base
   belongs_to :business_unit
 
   has_many :categories, dependent: :destroy
-  accepts_nested_attributes_for :categories, allow_destroy: true, reject_if: proc { |attributes| attributes[:api_id].nil? }
+  accepts_nested_attributes_for :categories, allow_destroy: true, reject_if: proc { |attributes| attributes[:api_id].blank? }
 
   has_many :attachments, as: :attached_item, dependent: :destroy
-  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes[:attachment].nil? }
+  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |attributes| attributes[:attachment].blank? }
 
   has_many :banners
-  accepts_nested_attributes_for :banners, allow_destroy: true, reject_if: proc { |attributes| attributes[:image].nil? }
+  accepts_nested_attributes_for :banners, allow_destroy: true, reject_if: proc { |attributes| attributes[:image].blank? }
+
+  has_many :rejection_reasons
+  accepts_nested_attributes_for :rejection_reasons, allow_destroy: true, reject_if: proc { |attributes| attributes[:description].blank? }
 
   def state_enum
     ProductionOrder.state_machine.states.map { |s| [s.human_name, s.name] }
@@ -255,9 +258,7 @@ class ProductionOrder < ActiveRecord::Base
   end
 
   def set_responsible
-    puts self.changed_attributes.inspect
     unless self.changed_attributes[:state].nil?
-      puts self.changes.inspect
       if self.changes[:state].last == 'designing'
         set_designer_as_responsible
       elsif self.changes[:state].last == 'qualifying'

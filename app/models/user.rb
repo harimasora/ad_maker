@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :business_unit
+  has_many :soliciting_orders, class_name: 'ProductionOrder', foreign_key: 'soliciting_user_id'
+  has_many :responsible_orders, class_name: 'ProductionOrder', foreign_key: 'responsible_user_id'
 
   scope :admin, -> { where(kind: 'PUAdminist') }
   scope :master, -> { where(kind: 'PUMaster') }
@@ -12,6 +14,7 @@ class User < ActiveRecord::Base
   scope :representative, -> { where(kind: 'PURepresen') }
   scope :designer, -> { where(kind: 'PUDesigner') }
   scope :marketing, -> { where(kind: 'PUMarketin') }
+  scope :idle, -> { joins("LEFT OUTER JOIN production_orders ON production_orders.responsible_user_id = users.id").where("production_orders.responsible_user_id IS null") }
 
   validates :kind, presence: :true, length: {maximum: 10}
   validates :name, presence: :true, length: {maximum: 50}

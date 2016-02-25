@@ -74,6 +74,7 @@ class ProductionOrder < ActiveRecord::Base
   after_create :initialize_code
 
   before_create :set_1st_responsible
+  after_create :auto_approve
   before_update :set_responsible
 
   def initialize_code
@@ -325,9 +326,9 @@ class ProductionOrder < ActiveRecord::Base
 
   def set_designer_as_responsible
     if self.original_designer_id.nil?
-      responsible = User.designer.where(business_unit: self.business_unit).sample
-      self.original_designer_id = responsible.try(:id)
-      self.responsible_user = responsible
+      designer = delegated_designer
+      self.original_designer_id = designer.try(:id)
+      self.responsible_user = designer
     else
       self.responsible_user_id = self.original_designer_id
     end
@@ -342,6 +343,24 @@ class ProductionOrder < ActiveRecord::Base
     responsible = User.marketing.sample
     self.responsible_user = responsible
   end
-end
 
-# p = FactoryGirl.create(:production_order)
+  def auto_approve
+    method_name = Setting.try(:first).try(:delegate_method)
+    unless method_name.blank? || (method_name == 'MAManual')
+      self.approve
+      set_designer_as_responsible
+      self.save
+    end
+  end
+
+  def delegated_designer
+    method_name = Setting.try(:first).try(:delegate_method)
+    if method_name.blank? || (method_name == 'MAManual')
+      nil
+    elsif method_name == 'MAAleatori'
+      User.designer.where(business_unit: self.business_unit).sample
+    elsif method_name == 'MABalencea'
+      User.designer.where(business_unit: self.business_unit).idle.sample || User.designer.where(business_unit: self.business_unit).joins(:responsible_orders).group("users.id").order("count(users.id) DESC").first
+    end
+  end
+end

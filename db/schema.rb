@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224132917) do
+ActiveRecord::Schema.define(version: 20160225182928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,12 @@ ActiveRecord::Schema.define(version: 20160224132917) do
   end
 
   add_index "rejection_reasons", ["production_order_id"], name: "index_rejection_reasons_on_production_order_id", using: :btree
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "delegate_method"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                             default: "", null: false

@@ -14,6 +14,7 @@ CodeTable.create(name: 'Situação do Usuário', kind: 'admin')
 CodeTable.create(name: 'Situação do Processo', kind: 'admin')
 CodeTable.create(name: 'Situação do Banner', kind: 'admin')
 CodeTable.create(name: 'Etapa do Processo', kind: 'admin')
+CodeTable.create(name: 'Método de Atribuição', kind: 'admin')
 
 # Code Items
 table = CodeTable.where(name: 'Tipo de Unidade de Negócio').first
@@ -47,6 +48,14 @@ CodeItem.create(short_description: 'EPQuality', description: 'Qualidade', code_t
 CodeItem.create(short_description: 'EPRejected', description: 'Rejeitado', code_table: table)
 CodeItem.create(short_description: 'EPPublishe', description: 'Publicado', code_table: table)
 CodeItem.create(short_description: 'EPCancelle', description: 'Cancelado', code_table: table)
+table = CodeTable.where(name: 'Método de Atribuição').first
+CodeItem.create(short_description: 'MAManual', description: 'Manual', code_table: table)
+CodeItem.create(short_description: 'MAAleatori', description: 'Aleatório', code_table: table)
+CodeItem.create(short_description: 'MABalencea', description: 'Balanceado', code_table: table)
 
+# Settings
+Setting.create(delegate_method: 'MABalencea')
+
+# AdminUser
 b = BusinessUnit.create(federation_unit_id: 1, federation_unit_name: 'DF', city_id: '1', city_name: 'Brasília', kind: 'TUNFranque', name: 'Matriz')
 b.users << User.create(email: 'zidalo@gmail.com', password: '1425Merc0#', name: 'Danilo Maia Rodrigues', kind: 'PUAdminist')

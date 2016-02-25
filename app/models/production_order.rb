@@ -17,8 +17,54 @@ class ProductionOrder < ActiveRecord::Base
   has_many :rejection_reasons
   accepts_nested_attributes_for :rejection_reasons, allow_destroy: true, reject_if: proc { |attributes| attributes[:description].blank? }
 
+  def federation_unit_id_enum
+    Api::FederationUnit.select_formatted
+  end
+
+  def city_id_enum
+    if self.federation_unit_id.nil?
+      []
+    else
+      Api::City.select_formatted(self.federation_unit_id)
+    end
+  end
+
+  def district_id_enum
+    if self.city_id.nil?
+      []
+    else
+      Api::District.select_formatted(self.city_id)
+    end
+  end
+
   def state_enum
     ProductionOrder.state_machine.states.map { |s| [s.human_name, s.name] }
+  end
+
+  rails_admin do
+    list do
+      configure :federation_unit_id do
+        hide
+      end
+      configure :city_id do
+        hide
+      end
+      configure :district_id do
+        hide
+      end
+    end
+
+    show do
+      configure :federation_unit_id do
+        hide
+      end
+      configure :city_id do
+        hide
+      end
+      configure :district_id do
+        hide
+      end
+    end
   end
 
   validates :business_unit_id, presence: true

@@ -37,6 +37,8 @@ $(document).on('rails_admin.dom_ready', function(){
     name_field.attr('value', name);
   };
 
+//  BUSINESS UNIT
+
   $(document).on('change', '#business_unit_federation_unit_id', function(event) {
     var field = $('#business_unit_federation_unit_id');
     updateSelectBox('/api/cities', $('#business_unit_city_id'), { business_unit: {federation_unit_id: field.val() }});
@@ -50,4 +52,28 @@ $(document).on('rails_admin.dom_ready', function(){
 
   $('#business_unit_federation_unit_name_field').hide();
   $('#business_unit_city_name_field').hide();
+
+//  PRODUCTION ORDER
+
+  $(document).on('change', '#production_order_federation_unit_id', function(event) {
+    var field = $('#production_order_federation_unit_id');
+    updateSelectBox('/api/cities', $('#production_order_city_id'), { production_order: {federation_unit_id: field.val() }});
+    updateNameField(field, $('#production_order_federation_unit_name'))
+  });
+
+  $(document).on('change', '#production_order_city_id', function(event) {
+    var field = $('#production_order_city_id');
+    updateSelectBox('/api/districts', $('#production_order_district_id'), { production_order: {city_id: field.val() }});
+    updateNameField(field, $('#production_order_city_name'))
+  });
+
+  $(document).on('change', '#production_order_district_id', function(event) {
+    var field = $('#production_order_district_id');
+    updateNameField(field, $('#production_order_district_name'))
+  });
+
+  $('#production_order_federation_unit_name_field').hide();
+  $('#production_order_city_name_field').hide();
+  $('#production_order_district_name_field').hide();
+
 });

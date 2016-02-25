@@ -7,11 +7,35 @@ class BusinessUnit < ActiveRecord::Base
   end
 
   def city_id_enum
-    []
+    if self.federation_unit_id.nil?
+      []
+    else
+      Api::City.select_formatted(self.federation_unit_id)
+    end
   end
 
   def kind_enum
     Api::Util.select_formatted(CodeTable.where(name: 'Tipo de Unidade de Negócio').first.code_items, 'description', 'short_description')
+  end
+
+  rails_admin do
+    list do
+      configure :federation_unit_id do
+        hide
+      end
+      configure :city_id do
+        hide
+      end
+    end
+
+    show do
+      configure :federation_unit_id do
+        hide
+      end
+      configure :city_id do
+        hide
+      end
+    end
   end
 
   validates :name, presence: true, length: { maximum: 50 }

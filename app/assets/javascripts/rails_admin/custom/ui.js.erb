@@ -1,7 +1,7 @@
 $(document).on('rails_admin.dom_ready', function(){
-  var updateAttributes;
+  var updateSelectBox, updateNameField, hideField;
 
-  updateAttributes = function(api_url, child_select, json_data) {
+  updateSelectBox = function(api_url, child_select, json_data) {
 
     $.ajax( api_url, {
       type: 'GET',
@@ -32,7 +32,22 @@ $(document).on('rails_admin.dom_ready', function(){
     });
   };
 
+  updateNameField = function(parent_select, name_field) {
+    var name = parent_select.text();
+    name_field.attr('value', name);
+  };
+
   $(document).on('change', '#business_unit_federation_unit_id', function(event) {
-    updateAttributes('/api/cities', $('#business_unit_city_id'), { business_unit: {federation_unit_id: $('#business_unit_federation_unit_id').val() }});
+    var field = $('#business_unit_federation_unit_id');
+    updateSelectBox('/api/cities', $('#business_unit_city_id'), { business_unit: {federation_unit_id: field.val() }});
+    updateNameField(field, $('#business_unit_federation_unit_name'))
   });
+
+  $(document).on('change', '#business_unit_city_id', function(event) {
+    var field = $('#business_unit_city_id');
+    updateNameField(field, $('#business_unit_city_name'))
+  });
+
+  $('#business_unit_federation_unit_name_field').hide();
+  $('#business_unit_city_name_field').hide();
 });

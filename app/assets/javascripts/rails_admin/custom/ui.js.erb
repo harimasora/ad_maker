@@ -1,17 +1,12 @@
 $(document).on('rails_admin.dom_ready', function(){
   var updateAttributes;
 
-  updateAttributes = function(selects) {
-    var federation_unit;
-    if (selects == null) {
-      selects = $("select[id^=business_unit_city_id]");
-    }
-    federation_unit = $('#business_unit_federation_unit_id').val();
+  updateAttributes = function(api_url, child_select, json_data) {
 
-    $.ajax('/api/cities', {
+    $.ajax( api_url, {
       type: 'GET',
       dataType: 'json',
-      data: { business_unit: {federation_unit_id: federation_unit} },
+      data: json_data,
       error: function(jqXHR, textStatus, errorThrown) {
         return alert(textStatus + ": " + errorThrown);
       },
@@ -31,17 +26,13 @@ $(document).on('rails_admin.dom_ready', function(){
           elements.push(opt);
         });
 
-        selects.each(function() {
-          var select, selected;
-          select = $(this);
-          selected = select.val();
-          select.filteringSelect("destroy").find("option:gt(0)").remove().end().append(elements).filteringSelect().val(select);
-        });
+        var selected = child_select.val();
+        child_select.filteringSelect("destroy").find("option:gt(0)").remove().end().append(elements).filteringSelect().val(selected);
       }
     });
   };
 
   $(document).on('change', '#business_unit_federation_unit_id', function(event) {
-    updateAttributes();
+    updateAttributes('/api/cities', $('#business_unit_city_id'), { business_unit: {federation_unit_id: $('#business_unit_federation_unit_id').val() }});
   });
 });

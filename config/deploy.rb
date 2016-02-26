@@ -74,6 +74,18 @@ set(:symlinks, [
 # is worth reading for a quick overview of what tasks are called
 # and when for `cap stage deploy`
 
+namespace :bower do
+  desc 'Install bower'
+  task :install do
+    on roles(:web) do
+      within release_path do
+        execute :rake, 'bower:install CI=true'
+      end
+    end
+  end
+end
+before 'deploy:compile_assets', 'bower:install'
+
 namespace :deploy do
   # make sure we're deploying what we think we're deploying
   before :deploy, "deploy:check_revision"

@@ -76,4 +76,46 @@ $(document).on('rails_admin.dom_ready', function(){
   $('#production_order_city_name_field').hide();
   $('#production_order_district_name_field').hide();
 
+//  CATEGORY
+
+  $(document).on('change', '#category_api_id', function(event) {
+    var field = $('#category_api_id');
+    updateSelectBox('/api/subgroups', $('#category_subcategory_api_id'), { category: {api_id: field.val() }});
+    updateNameField(field, $('#category_name'))
+  });
+
+  $(document).on('change', '#category_subcategory_api_id', function(event) {
+    var field = $('#category_subcategory_api_id');
+    updateNameField(field, $('#category_subcategory_name'))
+  });
+
+  $(document).on('nested:fieldAdded', 'form', function(content) {
+    var federation_unit_selector = content.field.find("select[id$=api_id]")[0];
+    var federation_unit_name_selector = content.field.find("input[id$=name]")[0];
+    var federation_unit_name_field_selector = content.field.find("div[id$=name_field]")[0];
+    var city_selector = content.field.find("select[id$=subcategory_api_id]")[0];
+    var city_name_selector = content.field.find("input[id$=subcategory_name]")[0];
+    var city_name_field_selector = content.field.find("div[id$=subcategory_name_field]")[0];
+    var federation_unit = $('#'+federation_unit_selector.id);
+    var federation_unit_name = $('#'+federation_unit_name_selector.id);
+    var federation_unit_name_field = $('#'+federation_unit_name_field_selector.id);
+    var city = $('#'+city_selector.id);
+    var city_name = $('#'+city_name_selector.id);
+    var city_name_field = $('#'+city_name_field_selector.id);
+
+    $(federation_unit).on('change', function(event) {
+      updateSelectBox('/api/subgroups', city, { category: {api_id: federation_unit.val() }});
+      updateNameField(federation_unit, federation_unit_name);
+    });
+
+    $(city).on('change', function(event) {
+      updateNameField(city, city_name)
+    });
+
+    federation_unit_name_field.hide();
+    city_name_field.hide();
+  });
+
+  $('#category_name_field').hide();
+  $('#category_subcategory_name_field').hide();
 });

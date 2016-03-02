@@ -14,7 +14,7 @@
     <%= f.label :subcategory_api_id, 'Sub Categoria' %>
     <%= f.select(
             :subcategory_api_id,
-            [ ],
+            f.object.subcategory_api_id_enum,
             { },
             class: 'form-control subcategory'
         ) %>

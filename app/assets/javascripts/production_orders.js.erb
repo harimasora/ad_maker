@@ -71,42 +71,37 @@ $(document).on("page:change", function() {
     responsible_box.change();
   });
 
-  $('#production_order_category1').on('ajax:success', function(evt, data, status, xhr) {
-    var subcategory_box = $('#production_order_subcategory1');
+  $('fieldset').each(function() {
+    var field = $(this)[0];
+    var category_box = $(field).find('select.category')[0];
+    var subcategory_box = $(field).find('select.subcategory')[0];
+    var hidden_category = $(field).find('input[type=hidden].category')[0];
+    var hidden_subcategory = $(field).find('input[type=hidden].subcategory')[0];
 
-    subcategory_box.empty();
+    $(category_box).on('ajax:success', function(evt, data, status, xhr) {
 
-    $.each(data, function(index, value) {
-      var opt = $('<option/>');
-      opt.text(value[0]);
-      opt.attr('value', value[1]);
-      opt.appendTo(subcategory_box);
+      $(subcategory_box).empty();
+
+      $.each(data, function(index, value) {
+        var opt = $('<option/>');
+        opt.text(value[0]);
+        opt.attr('value', value[1]);
+        opt.appendTo(subcategory_box);
+      });
+
+      $(subcategory_box).change();
     });
-  });
 
-  $('#production_order_category2').on('ajax:success', function(evt, data, status, xhr) {
-    var subcategory_box = $('#production_order_subcategory2');
-
-    subcategory_box.empty();
-
-    $.each(data, function(index, value) {
-      var opt = $('<option/>');
-      opt.text(value[0]);
-      opt.attr('value', value[1]);
-      opt.appendTo(subcategory_box);
+    $(category_box).change( function() {
+      var name = $(category_box).find('option:selected').text();
+      $(hidden_category).attr('value',name);
+      console.log($(hidden_category)[0].value);
     });
-  });
 
-  $('#production_order_category3').on('ajax:success', function(evt, data, status, xhr) {
-    var subcategory_box = $('#production_order_subcategory3');
-
-    subcategory_box.empty();
-
-    $.each(data, function(index, value) {
-      var opt = $('<option/>');
-      opt.text(value[0]);
-      opt.attr('value', value[1]);
-      opt.appendTo(subcategory_box);
+    $(subcategory_box).change( function() {
+      var name = $(subcategory_box).find('option:selected').text();
+      $(hidden_subcategory).attr('value',name);
+      console.log($(hidden_subcategory)[0].value);
     });
   });
 
